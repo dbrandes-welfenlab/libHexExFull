@@ -464,7 +464,7 @@ private:
     void addCellsToHexMeshWithLargeCells(PolyMeshT& polyMesh)
     {
         auto differenceBetweenInvertedAndProperDartsPerHalffacePoly = polyMesh.template request_halfface_property<int>();
-        differenceBetweenInvertedAndProperDartsPerHalffacePoly.set_persistent(true);
+        polyMesh.set_persistent(differenceBetweenInvertedAndProperDartsPerHalffacePoly);
 
         for (auto ch : intermediateHexMesh.cells())
         {
