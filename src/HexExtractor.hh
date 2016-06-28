@@ -290,6 +290,27 @@ private:
     void mergeVerticesOfOppositeFaces(HalfFaceHandle hfh);
     void mergeVerticesOfOppositeFaces();
 
+    // connects two darts if both are not nullptr and both are different from dart and otherDart
+    // else they are disconnected
+    template <int i>
+    void reconnectOrDisconnect(Dart* dart, Dart* otherDart, Dart* d1, Dart* d2)
+    {
+        if (d2 != dart && d1 != otherDart)
+        {
+            if (d2 != nullptr && d1 != nullptr)
+            {
+                d2->connectAlpha<i>(d1);
+            }
+            else
+            {
+                if (d1 != nullptr)
+                    d1->disconnectAlpha<i>();
+                if (d2 != nullptr)
+                    d2->disconnectAlpha<i>();
+            }
+        }
+    }
+
     bool fixProblem(Dart* dart, Dart* otherDart, bool mergeVertices);
 
     bool fixProblem1(Dart* dart, bool mergeVertices);

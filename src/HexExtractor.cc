@@ -1942,30 +1942,10 @@ bool HexExtractor::fixProblem(Dart* dart, Dart* otherDart, bool mergeVertices)
     auto neighborDart2 = otherDart->getAlpha<2>();
     auto oppositeDart2 = otherDart->getAlpha<3>();
 
-    // connects two darts if both are not nullptr
-    // else they are disconnected
-    auto reconnectOrDisconnect = [&](Dart* d1, Dart* d2)
-    {
-      if (d2 != dart && d1 != otherDart)
-      {
-          if (d2 != nullptr && d1 != nullptr)
-          {
-              d2->connectAlpha<0>(partnerDart1);
-          }
-          else
-          {
-              if (d1 != nullptr)
-                  d1->disconnectAlpha<0>();
-              if (d2 != nullptr)
-                  d2->disconnectAlpha<0>();
-          }
-      }
-    };
-
-    reconnectOrDisconnect(partnerDart1, partnerDart2);
-    reconnectOrDisconnect(previousDart1, previousDart2);
-    reconnectOrDisconnect(neighborDart1, neighborDart2);
-    reconnectOrDisconnect(oppositeDart1, oppositeDart2);
+    reconnectOrDisconnect<0>(dart, otherDart, partnerDart1, partnerDart2);
+    reconnectOrDisconnect<1>(dart, otherDart, previousDart1, previousDart2);
+    reconnectOrDisconnect<2>(dart, otherDart, neighborDart1, neighborDart2);
+    reconnectOrDisconnect<3>(dart, otherDart, oppositeDart1, oppositeDart2);
 
     dart->disconnectAlpha<0>();
     dart->disconnectAlpha<1>();
