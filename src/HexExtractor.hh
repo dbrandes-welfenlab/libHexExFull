@@ -105,6 +105,8 @@ public:
     {
         HEXEX_DEBUG_ONLY(std::cout << "converting mesh to hex mesh" << std::endl;)
 
+        hexMesh.clear();
+
         calculateDifferencesInDartTypes();
 
         mergeEquivalenceClassesOfAllDarts();
