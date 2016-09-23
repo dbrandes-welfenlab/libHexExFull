@@ -6,6 +6,7 @@ int main()
 {
   using namespace HexEx;
   using namespace OpenVolumeMesh;
+  using Vec3d = HexEx::Vec3d;
 
   // create a tet mesh representing a cube
   TetrahedralMesh tetMesh;
