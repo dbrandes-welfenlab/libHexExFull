@@ -752,9 +752,9 @@ private:
 
 }
 
-#if defined(WIN32) || defined(_WIN32)
-// specialize the has_input_operator class because the Visual Studio Compiler does not
-// support expression SFINAE and thus leads to wrong results.
+#if (defined(WIN32) || defined(_WIN32)) && (_MSC_VER < 1900)
+// specialize the has_input_operator class because the Visual Studio Compiler prior
+// to VS 2015 did not support expression SFINAE and thus leads to wrong results.
 
 namespace OpenVolumeMesh
 {
