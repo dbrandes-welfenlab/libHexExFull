@@ -482,12 +482,27 @@ private:
                     auto halfface_vertices = std::vector<VertexHandle>();
 
                     auto tmp_d = d;
+
+                    // rotate backwards as far as possible or back to d
+                    do
+                    {
+                        if ((tmp_d->getAlpha<1>() == nullptr) || (tmp_d->getAlpha<1>()->getAlpha<0>() == nullptr))
+                            break;
+
+                        tmp_d = tmp_d->getAlpha<1>()->getAlpha<0>();
+                    }
+                    while (tmp_d != d);
+
                     do
                     {
                         processed_darts.insert(tmp_d);
                         auto equivalenceClassId = equivalenceClassIds[tmp_d->getVertex()];
                         auto newVh = equivalenceClassVertices[equivalenceClassId];
                         halfface_vertices.push_back(newVh);
+
+                        if ((tmp_d->getAlpha<0>() == nullptr) || (tmp_d->getAlpha<0>()->getAlpha<1>() == nullptr))
+                            break;
+
                         tmp_d = tmp_d->getAlpha<0>()->getAlpha<1>();
                     }
                     while (tmp_d != d);
@@ -500,9 +515,11 @@ private:
                         differenceBetweenInvertedAndProperDartsPerHalffacePoly[hfh] = halfface_vertices.size()*2;
                         halffaces.push_back(hfh);
                     }
+
                 }
 
-            polyMesh.add_cell(halffaces, false);
+            if (halffaces.size() > 0)
+                polyMesh.add_cell(halffaces, false);
         }
     }
 
