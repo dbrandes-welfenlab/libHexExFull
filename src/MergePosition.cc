@@ -34,12 +34,12 @@ Position HexExtractor::getMergePosition(unsigned int equivalenceClass, bool opti
     auto& vertices = equivalenceClasses[equivalenceClass];
 
     if (vertices.size() == 1)
-        return intermediateHexMesh.vertex(vertices.front());
+        return intermediateHexMesh.vertex(VertexHandle(vertices.front()));
 
     bool containsBoundaryVertex = false;
 
     for (auto vh : vertices)
-        if (isBoundaryHexVertex(vh))
+        if (isBoundaryHexVertex(VertexHandle(vh)))
         {
             containsBoundaryVertex = true;
             break;
@@ -52,7 +52,7 @@ Position HexExtractor::getMergePosition(unsigned int equivalenceClass, bool opti
         // use center of gravity as merge position
         auto pos = Position(0,0,0);
         for (auto vh : vertices)
-            pos += intermediateHexMesh.vertex(vh);
+            pos += intermediateHexMesh.vertex(VertexHandle(vh));
         pos /= vertices.size();
         return pos;
     }
@@ -70,12 +70,12 @@ Position HexExtractor::getComplicatedMergePosition(unsigned int equivalenceClass
 
     auto vertices = equivalenceClasses[equivalenceClass];
 
-    auto isBoundaryHV = [&](VertexHandle vh){ return isBoundaryHexVertex(vh); };
+    auto isBoundaryHV = [&](int vh){ return isBoundaryHexVertex(VertexHandle(vh)); };
     vertices.erase(std::partition(vertices.begin(), vertices.end(), isBoundaryHV), vertices.end());
 
     auto cog = Position(0,0,0);
     for (auto vh : vertices)
-        cog += intermediateHexMesh.vertex(vh);
+        cog += intermediateHexMesh.vertex(VertexHandle(vh));
     cog /= vertices.size();
 
     auto sixteenzeros = std::vector<double>(16, 0.0);
@@ -85,13 +85,13 @@ Position HexExtractor::getComplicatedMergePosition(unsigned int equivalenceClass
     for (auto hexVh : vertices)
     {
 
-        auto boundaryHalffaces = getBoundaryHalffacesOfHexVertex(hexVh);
+        auto boundaryHalffaces = getBoundaryHalffacesOfHexVertex(VertexHandle(hexVh));
 
         for (auto hfh : boundaryHalffaces)
         {
             Vec3d n = getNormal(hfh);
 //            auto a = getArea(hfh);
-            auto bla = (intermediateHexMesh.vertex(hexVh)-cog);
+            auto bla = (intermediateHexMesh.vertex(VertexHandle(hexVh))-cog);
             auto d = -1.0* (n | bla);
 
             auto tmpquadric = getQuadric(n, d);
@@ -106,7 +106,7 @@ Position HexExtractor::getComplicatedMergePosition(unsigned int equivalenceClass
 
     for (auto vh : vertices)
     {
-        auto pos = intermediateHexMesh.vertex(vh) - cog;
+        auto pos = intermediateHexMesh.vertex(VertexHandle(vh)) - cog;
         //auto pos2 = Vec4d(pos[0], pos[1], pos[2], 1);
         //auto dist = (quadric * pos2) | pos2;
         auto pos3 = quadric.transform_point(pos);
@@ -114,7 +114,7 @@ Position HexExtractor::getComplicatedMergePosition(unsigned int equivalenceClass
         if (dist < minDist)
         {
             minDist = dist;
-            bestVh = vh;
+            bestVh = VertexHandle(vh);
         }
 
     }

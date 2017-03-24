@@ -23,23 +23,6 @@
 
 #include "Typedefs.hh"
 
-namespace std {
-
-
-template <typename T>
-auto begin(const std::pair<T,T>& p) -> decltype(p.first)
-{
-    return p.first;
-}
-
-template <typename T>
-auto end(const std::pair<T,T>& p) -> decltype(p.second)
-{
-    return p.second;
-}
-
-}
-
 namespace HexEx {
 
 template <typename Vec>
