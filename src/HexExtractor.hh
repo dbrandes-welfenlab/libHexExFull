@@ -105,7 +105,7 @@ public:
     {
         HEXEX_DEBUG_ONLY(std::cout << "converting mesh to hex mesh" << std::endl;)
 
-        hexMesh.clear();
+        hexMesh.clear(false);
 
         calculateDifferencesInDartTypes();
 
@@ -142,7 +142,7 @@ public:
     {
         auto tovec = toVec<typename TetMeshT::PointT>;
 
-        tetMesh.clear();
+        tetMesh.clear(false);
 
         auto parametrization = tetMesh.template request_cell_property<VertexMapProp<Vec3d>>("Parametrization");
         tetMesh.set_persistent(parametrization);
