@@ -37,7 +37,7 @@ void convertToHexExTetrahedralMesh(const TetMeshT& _mesh, TetrahedralMesh& _tetM
     };
 
     // add vertices
-    _tetMesh.clear();
+    _tetMesh.clear(false);
 
     for (auto v_it = _mesh.vertices_begin(); v_it != _mesh.vertices_end(); ++v_it)
         _tetMesh.add_vertex(toVec3d(_mesh.vertex(*v_it)));
