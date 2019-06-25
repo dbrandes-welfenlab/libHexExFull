@@ -3202,6 +3202,7 @@ Parameter HexExtractor::getHexVertexParameter(VertexHandle hexVh, CellHandle ch)
         param = tranFun.transform_point(param);
     }
     else if (type == FHVertex)
+    else if (type == FHVertex)
     {
         auto tranFun = identity;
         if (incidentCell != ch)
@@ -3347,7 +3348,13 @@ void HexExtractor::truncatePrecision(bool extremeTruncation)
                     ch = *inputMesh.vc_iter(*v_it);
             }
         }
-        assert(ch.is_valid());
+
+        if(!ch.is_valid()) // tolerate isolated vertices but output warning in debug mode
+        {
+            HEXEX_DEBUG_ONLY( std::cerr << "Warning: vertex skipped during sanitization since invalid cell handle found for vertex with valence " << inputMesh.valence(*v_it)  << std::endl;)
+            continue;
+        }
+        // assert(ch.is_valid());
 
 
         // precision truncation
