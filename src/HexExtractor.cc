@@ -3202,7 +3202,6 @@ Parameter HexExtractor::getHexVertexParameter(VertexHandle hexVh, CellHandle ch)
         param = tranFun.transform_point(param);
     }
     else if (type == FHVertex)
-    else if (type == FHVertex)
     {
         auto tranFun = identity;
         if (incidentCell != ch)
