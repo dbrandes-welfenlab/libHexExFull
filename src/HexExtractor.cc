@@ -4472,7 +4472,7 @@ bool HexExtractor::isCellDegenerate(CellHandle ch)
 
     ++isCellDegenerateCalls;
 
-    return cellTypes[ch.idx()] == Degenerate;
+    return cellTypes[ch] == Degenerate;
 }
 
 bool HexExtractor::isCellFlipped(CellHandle ch)
@@ -4483,7 +4483,7 @@ bool HexExtractor::isCellFlipped(CellHandle ch)
 
     ++isCellFlippedCalls;
 
-    return cellTypes[ch.idx()] == Flipped;
+    return cellTypes[ch] == Flipped;
 }
 
 bool HexExtractor::isFaceDegenerate(HalfFaceHandle hfh)
