@@ -919,8 +919,11 @@ bool HexExtractor::traceDart2(Dart& dart)
 
         auto transitionFace = alpha0NextFace(lastFace, currentCell, startParam, traceDir, refDir, normalDir);
 
-        if (!transitionFace.is_valid())
-            traceDart2(dart);
+        if (!transitionFace.is_valid()) {
+            HEXEX_DEBUG_ONLY(std::cout << "failed to find alpha0NextFace" << std::endl;)
+            assert(false);
+            return false;
+        }
 
         if (isFaceDegenerate(transitionFace))
         {
@@ -1094,7 +1097,10 @@ bool HexExtractor::connectDartToNeighborSecondaryDart2(Dart& dart)
         auto transitionFace = alpha2NextFace(lastFace, currentCell, currentParameter, traceDir, refDir, normalDir);
 
         if (!transitionFace.is_valid())
-            connectDartToNeighborSecondaryDart2(dart);
+            HEXEX_DEBUG_ONLY(std::cout << "failed to find alpha2NextFace" << std::endl;)
+            assert(false);
+            return false;
+        }
 
         if (isFaceDegenerate(transitionFace))
         {
@@ -1381,7 +1387,6 @@ HalfFaceHandle HexExtractor::alpha0NextFace(HalfFaceHandle prevFace, CellHandle 
                 if (alpha0FaceTest(hfh, param, traceDir, refDir, normalDir))
                     return hfh;
 
-    alpha0NextFace(prevFace, ch, param, traceDir, refDir, normalDir);
     assert(false);
 
     return HalfFaceHandle();
@@ -1485,7 +1490,6 @@ HalfFaceHandle HexExtractor::alpha1NextFace(HalfFaceHandle prevFace, CellHandle 
                 if (alpha1FaceTest(hfh, param, traceDir, refDir, normalDir))
                     return hfh;
 
-    alpha1NextFace(prevFace, ch, param, traceDir, refDir, normalDir);
     assert(false);
 
     return HalfFaceHandle();
