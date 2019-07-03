@@ -1097,6 +1097,7 @@ bool HexExtractor::connectDartToNeighborSecondaryDart2(Dart& dart)
         auto transitionFace = alpha2NextFace(lastFace, currentCell, currentParameter, traceDir, refDir, normalDir);
 
         if (!transitionFace.is_valid())
+        {
             HEXEX_DEBUG_ONLY(std::cout << "failed to find alpha2NextFace" << std::endl;)
             assert(false);
             return false;
