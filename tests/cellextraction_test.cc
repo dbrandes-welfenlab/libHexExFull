@@ -22,6 +22,8 @@
 #include "common.hh"
 #include <HexExtractor.hh>
 
+#include <OpenVolumeMesh/FileManager/FileManager.hh>
+
 using namespace HexEx;
 
 TEST(CellExtraction, CellExtractionTest)
@@ -50,6 +52,9 @@ TEST(CellExtraction, CellExtractionTest)
 
       EXPECT_EQ(expectedNumberOfCells, hexMesh.n_cells()) << "Size: " << size;
 
+      OpenVolumeMesh::IO::FileManager fileManager;
+      fileManager.writeFile(std::string("Results/Cube_") + std::to_string(size) + ".ovm", hexMesh);
+
     }
 
 }
@@ -72,6 +77,9 @@ TEST(CellExtraction, CellExtractionMasterVertexTest)
 
   EXPECT_EQ(expectedNumberOfCells, hexMesh.n_cells());
 
+  OpenVolumeMesh::IO::FileManager fileManager;
+  fileManager.writeFile("Results/MasterVertex.ovm", hexMesh);
+
 }
 
 TEST(CellExtraction, CellExtractionPrismTest)
@@ -91,36 +99,46 @@ TEST(CellExtraction, CellExtractionPrismTest)
 
   EXPECT_EQ(expectedNumberOfCells, hexMesh.n_cells());
 
+  OpenVolumeMesh::IO::FileManager fileManager;
+  fileManager.writeFile("Results/prism.ovm", hexMesh);
+
+}
+
+void test_file(const std::string& _filename, size_t _n_expected_cells)
+{
+
+  std::string filename = "testdata/" + _filename + ".hexex";
+  HexExtractor hexExtractor(filename);
+
+  ASSERT_GT(hexExtractor.getInputMesh().n_cells(), 0) << "could not load mesh";
+
+  hexExtractor.extract();
+
+  HexahedralMesh hexMesh;
+  hexExtractor.getHexMesh(hexMesh);
+
+  EXPECT_EQ(hexMesh.n_cells(), _n_expected_cells) << "Not correctly extracted";
+
+  OpenVolumeMesh::IO::FileManager fileManager;
+  fileManager.writeFile("Results/" + _filename + ".ovm", hexMesh);
 }
 
 TEST(CellExtraction, CellExtractionFiveAdvancedTest)
 {
-
-  std::string filename = "testdata/fiveadvanced.hexex";
-  HexExtractor hexExtractor(filename);
-
-  ASSERT_GE(hexExtractor.getInputMesh().n_cells(), 0) << "could not load mesh";
-
-  hexExtractor.extract();
-
-  HexahedralMesh hexMesh;
-  hexExtractor.getHexMesh(hexMesh);
-
-  EXPECT_GE(hexMesh.n_cells(), 0) << "nothing extracted";
+  test_file("fiveadvanced", 96);
 }
-
 
 TEST(CellExtraction, CellExtractionFiveFineTest)
 {
-  std::string filename = "testdata/fiveFine.hexex";
-  HexExtractor hexExtractor(filename);
+  test_file("fiveFine", 4416);
+}
 
-  ASSERT_GE(hexExtractor.getInputMesh().n_cells(), 0) << "could not load mesh";
+TEST(CellExtraction, CellExtractionSphereTest)
+{
+  test_file("sphere", 216);
+}
 
-  hexExtractor.extract();
-
-  HexahedralMesh hexMesh;
-  hexExtractor.getHexMesh(hexMesh);
-
-  EXPECT_GE(hexMesh.n_cells(), 0) << "nothing extracted";
+TEST(CellExtraction, CellExtractionCylinderTest)
+{
+  test_file("cylinderadvanced", 140);
 }
