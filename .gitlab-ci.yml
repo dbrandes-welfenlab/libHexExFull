@@ -31,7 +31,7 @@ macos-c++11:
   tags:
     - Apple
 
-macos-c++98:
+macos-c++14:
   stage: build
   script: "CI/ci-mac.sh C++14"
   tags:
