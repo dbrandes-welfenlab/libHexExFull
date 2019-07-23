@@ -28,8 +28,6 @@ endif()
 
 list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-find_package (OpenVolumeMesh REQUIRED)
-
 add_definitions(-DINCLUDE_TEMPLATES)
 
 set (SOURCES "")
@@ -40,6 +38,14 @@ set (LIBRARY_DIRS "")
 
 file(GLOB SRCS "${CMAKE_CURRENT_LIST_DIR}/src/*.cc" "${CMAKE_CURRENT_LIST_DIR}/src/*.c")
 
+if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/OpenVolumeMesh")
+  add_subdirectory(OpenVolumeMesh)
+  message("Building with OpenVolumeMesh")
+else()
+  message("Not Building with OpenVolumeMesh")
+endif()
+
+find_package (OpenVolumeMesh REQUIRED)
 
 list (APPEND SOURCES ${SRCS})
 list (APPEND INCLUDE_DIRS ${OPENVOLUMEMESH_INCLUDE_DIR})
