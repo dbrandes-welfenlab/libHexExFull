@@ -25,3 +25,14 @@ clang-c++14:
   tags:
     - Linux
 
+macos-c++11:
+  stage: build
+  script: "CI/ci-mac.sh C++11"
+  tags:
+    - Apple
+
+macos-c++98:
+  stage: build
+  script: "CI/ci-mac.sh C++14"
+  tags:
+    - Apple
