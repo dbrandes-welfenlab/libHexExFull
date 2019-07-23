@@ -2599,6 +2599,13 @@ REAL permanent;
   INEXACT REAL _i, _j;
   REAL _0;
 
+  axtbclen = 0;
+  aytbclen = 0;
+  bxtcalen = 0;
+  bytcalen = 0;
+  cxtablen = 0;
+  cytablen = 0;
+
   adx = (REAL) (pa[0] - pd[0]);
   bdx = (REAL) (pb[0] - pd[0]);
   cdx = (REAL) (pc[0] - pd[0]);

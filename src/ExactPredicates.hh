@@ -81,7 +81,7 @@ typedef enum {
 
 /// Maps an ::ORIENTATION to a string. Useful for debugging output.
 inline const char *Orientation2Str(ORIENTATION value) {
-    static const char *(strs[]) = {
+    static const char *strs[] = {
         "ORI_NEGATIVE", "ORI_ZERO", "ORI_POSITIVE"
     };
 

@@ -28,8 +28,6 @@ endif()
 
 list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-find_package (OpenVolumeMesh REQUIRED)
-
 add_definitions(-DINCLUDE_TEMPLATES)
 
 set (SOURCES "")
@@ -40,6 +38,14 @@ set (LIBRARY_DIRS "")
 
 file(GLOB SRCS "${CMAKE_CURRENT_LIST_DIR}/src/*.cc" "${CMAKE_CURRENT_LIST_DIR}/src/*.c")
 
+if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/OpenVolumeMesh")
+  add_subdirectory(OpenVolumeMesh)
+  message("Building with OpenVolumeMesh")
+else()
+  message("Not Building with OpenVolumeMesh")
+endif()
+
+find_package (OpenVolumeMesh REQUIRED)
 
 list (APPEND SOURCES ${SRCS})
 list (APPEND INCLUDE_DIRS ${OPENVOLUMEMESH_INCLUDE_DIR})
@@ -128,16 +134,17 @@ if("${PROJECT_NAME}" MATCHES "HexEx")
    add_subdirectory(demo/minimum_example)
 endif()
 
-#set(BUILD_UNIT_TESTS false CACHE BOOL "Whether to build the unit tests.")
-#if (BUILD_UNIT_TESTS)
-#    enable_testing()
-#    set(GTEST_DIR CACHE PATH "Source path of googletest.")
-#    if (NOT GTEST_DIR)
-#        message(FATAL_ERROR "GTEST_DIR unset")
-#    endif()
-#    add_subdirectory(${GTEST_DIR} gtest)
-#    add_subdirectory(tests)
+#if ( NOT DEFINED HEXEX_BUILD_UNIT_TESTS)
+#  set( HEXEX_BUILD_UNIT_TESTS false CACHE BOOL "Enable or disable unit test builds in HexEx." )
 #endif()
+#add_subdirectory (unittests)
+
+set(HEXEX_BUILD_UNIT_TESTS false CACHE BOOL "Whether to build the unit tests.")
+if (HEXEX_BUILD_UNIT_TESTS)
+    enable_testing()
+    find_package(GoogleTest REQUIRED)
+    add_subdirectory(tests)
+endif()
 
 
 #find_package(Doxygen)

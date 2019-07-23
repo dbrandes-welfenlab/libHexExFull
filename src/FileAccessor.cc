@@ -27,7 +27,7 @@
 
 bool HexEx::writeToFile(std::string fileName, TetrahedralMesh& mesh, PerCellVertexProperty<Parameter>& parameters)
 {
-    std::ofstream filestream(fileName, std::ofstream::binary);
+    std::ofstream filestream(fileName, std::ofstream::out);
     return writeToStream(filestream, mesh, parameters);
 //    return writeToStreamBinary(filestream, mesh, parameters);
 }
@@ -35,7 +35,7 @@ bool HexEx::writeToFile(std::string fileName, TetrahedralMesh& mesh, PerCellVert
 
 bool HexEx::readFromFile(std::string fileName, TetrahedralMesh& mesh, PerCellVertexProperty<Parameter>& parameters)
 {
-    std::ifstream filestream(fileName, std::ifstream::binary);
+    std::ifstream filestream(fileName, std::ifstream::in);
     if (!filestream.is_open())
     {
         std::cout << "could not open " << fileName << std::endl;

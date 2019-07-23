@@ -29,9 +29,17 @@
 namespace HexEx{
 
 template <typename T>
+class Matrix4x4T;
+
+template <typename T>
+bool operator==(const Matrix4x4T<T>& _mat, const Matrix4x4T<T>& _other);
+
+template <typename T>
 class Matrix4x4T
 {
     using Matrix4x4 = Matrix4x4T<T>;
+
+    friend bool operator==<>(const Matrix4x4T<T>& _mat, const Matrix4x4T<T>& _other);
 
 public:
     Matrix4x4T()
@@ -85,6 +93,11 @@ public:
                     res(i,j) += operator()(i,k) * _mat(k,j);
 
         return res;
+    }
+
+    bool operator==(const Matrix4x4& _other)
+    {
+      return entries == _other.entries;
     }
 
     template <typename Vec>
@@ -256,6 +269,12 @@ public:
 private:
     std::array<T, 16> entries;
 };
+
+template <typename T>
+bool operator==(const Matrix4x4T<T>& _mat, const Matrix4x4T<T>& _other)
+{
+  return _mat.entries == _other.entries;
+}
 
 
 template <typename T>
