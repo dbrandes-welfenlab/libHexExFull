@@ -148,7 +148,7 @@ void HexExtractor::extractHVertices()
     for (auto fh : inputMesh.faces())
         incidentVerticesPerFace[fh].clear();
     for (auto ch : inputMesh.cells())
-        incidentVerticesPerFace[ch].clear();
+        incidentVerticesPerCell[ch].clear();
 
 
     HEXEX_DEBUG_ONLY(std::cout << "Extracting vertices on vertices" << std::endl;)
