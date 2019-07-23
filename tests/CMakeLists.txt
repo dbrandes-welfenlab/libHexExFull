@@ -58,7 +58,7 @@ if ( HEXEX_BUILD_UNIT_TESTS )
     if ( NOT WIN32 )
       # Set compiler flags
       if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        set_target_properties(unittests PROPERTIES COMPILE_FLAGS "-g -Wall -Wno-long-long")
+        set_target_properties(unittests PROPERTIES COMPILE_FLAGS "-g -Wno-long-long")
       else()
         set_target_properties(unittests PROPERTIES COMPILE_FLAGS "-g -pedantic -Wno-long-long")
       endif()

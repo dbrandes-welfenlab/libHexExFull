@@ -74,7 +74,7 @@ target_link_libraries (HexExStatic ${LIBRARIES})
 #
 set (HEXEX_COMPILE_FLAGS "-Wall")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set (HEXEX_COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS} -msse -mfpmath=sse -Weverything" )
+    set (HEXEX_COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS} -msse -mfpmath=sse" )
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     set (HEXEX_COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS} -msse -mfpmath=sse -pedantic -Wextra")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
