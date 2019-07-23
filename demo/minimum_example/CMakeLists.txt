@@ -49,15 +49,17 @@ add_executable (minimum_example ${MINIMUM_EXAMPLE_SOURCES})
 LINK_DIRECTORIES(minimum_example ${MINIMUM_EXAMPLE_LIBRARY_DIRS} )
 target_link_libraries(minimum_example ${MINIMUM_EXAMPLE_LIBRARIES})
 
-if (NOT WIN32 )
-    set(HEXEX_COMPILE_FLAGS "-Wall -Wextra -pedantic -std=c++11 -Wno-long-long")
-else()
-    set(HEXEX_COMPILE_FLAGS "")
+if ( NOT WIN32 )
+  # Set compiler flags
+  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set_target_properties(minimum_example PROPERTIES COMPILE_FLAGS "-Wall -Wno-long-long")
+  else()
+    set_target_properties(minimum_example PROPERTIES COMPILE_FLAGS "-pedantic -Wno-long-long")
+  endif()
 endif()
 
 set_target_properties(minimum_example
     PROPERTIES
     INCLUDE_DIRECTORIES "${MINIMUM_EXAMPLE_INCLUDE_DIRS}"
-    COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS}"
 )
 

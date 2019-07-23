@@ -49,14 +49,16 @@ add_executable (cmdline_tool ${CMDLINE_TOOL_SOURCES})
 LINK_DIRECTORIES(cmdline_tool ${CMDLINE_TOOL_LIBRARY_DIRS} )
 target_link_libraries(cmdline_tool ${CMDLINE_TOOL_LIBRARIES})
 
-if (NOT WIN32 )
-    set(HEXEX_COMPILE_FLAGS "-Wall -Wextra -pedantic -std=c++11 -Wno-long-long")
-else()
-    set(HEXEX_COMPILE_FLAGS "")
+if ( NOT WIN32 )
+  # Set compiler flags
+  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set_target_properties(cmdline_tool PROPERTIES COMPILE_FLAGS "-Wall -Wno-long-long")
+  else()
+    set_target_properties(cmdline_tool PROPERTIES COMPILE_FLAGS "-pedantic -Wno-long-long")
+  endif()
 endif()
 
 set_target_properties(cmdline_tool
     PROPERTIES
     INCLUDE_DIRECTORIES "${CMDLINE_TOOL_INCLUDE_DIRS}"
-    COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS}"
 )

@@ -73,13 +73,10 @@ target_link_libraries (HexExStatic ${LIBRARIES})
 # exact predicates produce correct results.
 #
 set (HEXEX_COMPILE_FLAGS "-Wall")
-set (HEXEX_CXX_COMPILE_FLAGS "")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set (HEXEX_COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS} -msse -mfpmath=sse -pedantic -Weverything" )
-    set (HEXEX_CXX_COMPILE_FLAGS "-std=c++11")
+    set (HEXEX_COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS} -msse -mfpmath=sse -Weverything" )
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     set (HEXEX_COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS} -msse -mfpmath=sse -pedantic -Wextra")
-    set (HEXEX_CXX_COMPILE_FLAGS "-std=c++11")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
     message (WARNING
         "You are using an Intel compiler which might generate x87 FPU code "
@@ -108,15 +105,17 @@ set_target_properties (HexEx
     PROPERTIES
     COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS}"
     DEFINE_SYMBOLS "-DHEXEX_EXPORT_SYMBOLS"
+    CXX_STANDARD 11
     )
 
 set_target_properties (HexExStatic
     PROPERTIES
     COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS}"
     DEFINE_SYMBOLS "-DHEXEX_EXPORT_SYMBOLS"
+    CXX_STANDARD 11
     )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${HEXEX_CXX_COMPILE_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 #
 # Fake successful finder run if compiling as a dependent project.
