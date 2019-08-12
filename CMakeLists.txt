@@ -59,8 +59,8 @@ link_directories (${CMAKE_BINARY_DIR} ${LIBRARY_DIRS} )
 add_library (HexEx SHARED ${SOURCES})
 add_library (HexExStatic STATIC ${SOURCES})
 
-target_link_libraries (HexEx ${LIBRARIES})
-target_link_libraries (HexExStatic ${LIBRARIES})
+target_link_libraries (HexEx ${LIBRARIES} OpenVolumeMesh)
+target_link_libraries (HexExStatic ${LIBRARIES} OpenVolumeMesh)
 
 #
 # In order for the exact predicates to work the compiler
@@ -107,6 +107,12 @@ set_target_properties (HexEx
     DEFINE_SYMBOLS "-DHEXEX_EXPORT_SYMBOLS"
     CXX_STANDARD 11
     )
+
+target_include_directories(HexEx
+        INTERFACE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+        )
 
 set_target_properties (HexExStatic
     PROPERTIES
