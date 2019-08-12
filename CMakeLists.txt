@@ -166,3 +166,5 @@ endif()
 #        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc
 #        COMMENT "Generating Doxygen documentation" VERBATIM)
 #endif()
+
+list(REMOVE_AT CMAKE_MODULE_PATH -1)
