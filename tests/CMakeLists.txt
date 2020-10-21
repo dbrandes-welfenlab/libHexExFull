@@ -67,6 +67,13 @@ if ( HEXEX_BUILD_UNIT_TESTS )
       set_target_properties(unittests PROPERTIES COMPILE_FLAGS "" )
     endif()
 
+    set_target_properties (unittests
+        PROPERTIES
+        CXX_STANDARD 11
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO
+        )
+
 	if ( NOT WIN32 )
       #copy test files to unittest output dir
       acg_copy_after_build(unittests ${CMAKE_CURRENT_LIST_DIR}/testdata ${OUTPUT_DIR}/testdata)

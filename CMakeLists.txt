@@ -62,13 +62,6 @@ add_library (HexExStatic STATIC ${SOURCES})
 target_link_libraries (HexEx ${LIBRARIES} OpenVolumeMesh)
 target_link_libraries (HexExStatic ${LIBRARIES} OpenVolumeMesh)
 
-set_target_properties(HexEx HexExStatic
-    PROPERTIES
-        CXX_STANDARD 11
-        CXX_STANDARD_REQUIRED YES
-        CXX_EXTENSIONS NO
-)
-
 #
 # In order for the exact predicates to work the compiler
 # must not generate x87 FPU code as this leads to the use
@@ -113,6 +106,8 @@ set_target_properties (HexEx
     COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS}"
     DEFINE_SYMBOLS "-DHEXEX_EXPORT_SYMBOLS"
     CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
     )
 
 target_include_directories(HexEx
@@ -131,6 +126,8 @@ set_target_properties (HexExStatic
     COMPILE_FLAGS "${HEXEX_COMPILE_FLAGS}"
     DEFINE_SYMBOLS "-DHEXEX_EXPORT_SYMBOLS"
     CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
     )
 set_property(TARGET HexExStatic PROPERTY POSITION_INDEPENDENT_CODE ON)
 
