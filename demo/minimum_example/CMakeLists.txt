@@ -61,5 +61,8 @@ endif()
 set_target_properties(minimum_example
     PROPERTIES
     INCLUDE_DIRECTORIES "${MINIMUM_EXAMPLE_INCLUDE_DIRS}"
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
 )
 

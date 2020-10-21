@@ -61,4 +61,7 @@ endif()
 set_target_properties(cmdline_tool
     PROPERTIES
     INCLUDE_DIRECTORIES "${CMDLINE_TOOL_INCLUDE_DIRS}"
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
 )
