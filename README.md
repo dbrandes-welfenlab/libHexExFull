@@ -31,7 +31,7 @@ by numerical inaccuracies and limited solver precision, as well as imperfections
 maps pose significant challenges to the hex mesh extractor.
 
 Read [our paper](https://www.graphics.rwth-aachen.de/publication/03260/) if you want
-to find out why hex extraction is complicated and how we tackle it or skip ahead and
+to find out why hex extraction is complicated and how we tackle it, or skip ahead and
 download the source code if you don't care about the details and just need results.
 
 ## License

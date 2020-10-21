@@ -24,7 +24,9 @@ make
 
 # Try a demo
 ./demo/minimum_example/minimum_example
-
+or
+./demo/cmdline_tool/cmdline_tool
+Example input and a script which produce the results of our paper are available [here](https://www.graphics.rwth-aachen.de/publication/03260/).
 
 If you do have OpenVolumeMesh installed, you can build libHexEx by performing the following steps:
 
