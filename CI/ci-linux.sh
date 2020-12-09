@@ -47,12 +47,12 @@ OUTPUT='\033[0;32m'
 WARNING='\033[0;93m'
 
 #clone OpenVolumeMesh
-if [ ! -d OpenVolueMesh ]; then
-  git clone https://graphics.rwth-aachen.de:9000/OpenVolumeMesh/OpenVolumeMesh
-else
+if [ -d OpenVolumeMesh/ ]; then
   cd OpenVolumeMesh
   git pull
   cd ..
+else
+  git clone https://graphics.rwth-aachen.de:9000/OpenVolumeMesh/OpenVolumeMesh
 fi
 
 
@@ -79,6 +79,8 @@ echo "======================================================================"
 echo -e "${NC}"
 
 
+git submodule update --init --recursive
+
 if [ ! -d build-release-$BUILDPATH ]; then
   mkdir build-release-$BUILDPATH
 fi
@@ -100,13 +102,12 @@ echo "Running unittests Release version"
 echo "======================================================================"
 echo -e "${NC}"
 
-cd Build
+cd Build/bin
 
 #execute tests
 ./unittests --gtest_color=yes --gtest_output=xml
 
-cd ..
-cd ..
+cd ../../..
 
 echo -e "${OUTPUT}"
 echo ""
@@ -138,10 +139,9 @@ echo "======================================================================"
 echo -e "${NC}"
 
 
-cd Build
+cd Build/bin
 
 #execute tests
 ./unittests --gtest_color=yes --gtest_output=xml
 
-cd ..
-cd ..
+cd ../../..

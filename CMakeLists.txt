@@ -26,7 +26,7 @@ if("${PROJECT_NAME}" STREQUAL "")
     project (HexEx)
 endif()
 
-list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_SOURCE_DIR}/cmake-library/finders ${CMAKE_SOURCE_DIR}/cmake-library/VCI)
 
 add_definitions(-DINCLUDE_TEMPLATES)
 
