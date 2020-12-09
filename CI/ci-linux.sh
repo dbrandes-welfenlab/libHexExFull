@@ -79,6 +79,8 @@ echo "======================================================================"
 echo -e "${NC}"
 
 
+git submodule update --init --recursive
+
 if [ ! -d build-release-$BUILDPATH ]; then
   mkdir build-release-$BUILDPATH
 fi
