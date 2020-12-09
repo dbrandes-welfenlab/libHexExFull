@@ -88,8 +88,7 @@ cd Build/bin
 #execute tests
 ./unittests --gtest_color=yes --gtest_output=xml
 
-cd ..
-cd ..
+cd ../../..
 
 echo -e "${OUTPUT}"
 echo ""
@@ -126,5 +125,4 @@ cd Build/bin
 #execute tests
 ./unittests --gtest_color=yes --gtest_output=xml
 
-cd ..
-cd ..
+cd ../../..
