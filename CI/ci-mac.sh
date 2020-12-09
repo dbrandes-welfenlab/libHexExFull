@@ -32,7 +32,7 @@ OUTPUT='\033[0;32m'
 WARNING='\033[0;93m'
 
 #clone OpenVolumeMesh
-if [ ! -d OpenVolueMesh ]; then
+if [ ! -d OpenVolumeMesh ]; then
   git clone https://graphics.rwth-aachen.de:9000/OpenVolumeMesh/OpenVolumeMesh
 else
   cd OpenVolumeMesh
@@ -59,6 +59,8 @@ echo "Building Release version with vectorchecks enabled"
 echo "======================================================================"
 echo -e "${NC}"
 
+
+git submodule update --init --recursive
 
 if [ ! -d build-release-$BUILDPATH ]; then
   mkdir build-release-$BUILDPATH
@@ -119,7 +121,7 @@ echo "======================================================================"
 echo -e "${NC}"
 
 
-cd Build
+cd Build/bin
 
 #execute tests
 ./unittests --gtest_color=yes --gtest_output=xml
