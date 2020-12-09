@@ -1,4 +1,4 @@
-#include (ACGCommon)
+#include (VCICommon)
 
 if (NOT DEFINED HEXEX_INCLUDE_DIRS)
   set(HEXEX_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/src/")
@@ -37,11 +37,11 @@ if ( HEXEX_BUILD_UNIT_TESTS )
 
     target_include_directories(unittests PRIVATE ${HEXEX_INCLUDE_DIRS})
 
-    # For the unittest we don't want the install rpath as set by acg_add_executable
+    # For the unittest we don't want the install rpath as set by vci_add_executable
     set_target_properties ( unittests PROPERTIES  BUILD_WITH_INSTALL_RPATH 0 )
 
     # Set output directory to ${BINARY_DIR}/Build
-    set (OUTPUT_DIR "${CMAKE_BINARY_DIR}/Build/${ACG_PROJECT_BINDIR}")
+    set (OUTPUT_DIR "${CMAKE_BINARY_DIR}/Build/${VCI_PROJECT_BINDIR}")
     set_target_properties(unittests PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
     foreach(CONFIG ${CMAKE_CONFIGURATION_TYPES})
       string(TOUPPER ${CONFIG} UPCONFIG)
@@ -76,11 +76,11 @@ if ( HEXEX_BUILD_UNIT_TESTS )
 
 	if ( NOT WIN32 )
       #copy test files to unittest output dir
-      acg_copy_after_build(unittests ${CMAKE_CURRENT_LIST_DIR}/testdata ${OUTPUT_DIR}/testdata)
+      vci_copy_after_build(unittests ${CMAKE_CURRENT_LIST_DIR}/testdata ${OUTPUT_DIR}/testdata)
       file(MAKE_DIRECTORY ${OUTPUT_DIR}/Results)
 	else()
       #copy test files to Build dir because in unittest output dir dlls are missing
-      acg_copy_after_build(unittests ${CMAKE_CURRENT_LIST_DIR}/testdata ${CMAKE_BINARY_DIR}/Build/testdata)
+      vci_copy_after_build(unittests ${CMAKE_CURRENT_LIST_DIR}/testdata ${CMAKE_BINARY_DIR}/Build/testdata)
       file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Build/Results)
 	endif()
 
