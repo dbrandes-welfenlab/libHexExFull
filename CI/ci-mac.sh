@@ -83,7 +83,7 @@ echo "Running unittests Release version"
 echo "======================================================================"
 echo -e "${NC}"
 
-cd Build
+cd Build/bin
 
 #execute tests
 ./unittests --gtest_color=yes --gtest_output=xml
