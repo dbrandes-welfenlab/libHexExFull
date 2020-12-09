@@ -1,4 +1,4 @@
-#include (VCICommon)
+include (VCICommon)
 
 if (NOT DEFINED HEXEX_INCLUDE_DIRS)
   set(HEXEX_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/src/")
