@@ -60,6 +60,21 @@ private:
         Degenerate
     };
 
+    std::string to_string(CellType type)
+    {
+      switch (type)
+      {
+      case NotComputed:
+        return "NotComputed";
+      case Proper:
+        return "Proper";
+      case Flipped:
+        return "Flipped";
+      case Degenerate:
+        return "Degenerate";
+      }
+    }
+
 public:
 
     HexExtractor();
@@ -373,6 +388,7 @@ private:
 
     void computeCellTypes();
     CellType computeCellType(CellHandle ch);
+    CellType getCellType(CellHandle ch);
 
     void randomizeParametrization(double offsetSize, double keepBoundary = false);
 
