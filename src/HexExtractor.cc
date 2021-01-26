@@ -2619,6 +2619,12 @@ void HexExtractor::extractTransitionFunction(FaceHandle fh)
                 }
             }
 
+            HEXEX_DEBUG_ONLY(
+            if (min_dist > 1e-3)
+              std::cout << "warning, the tranistion function of face " << fh.idx() << " does not seem to "
+                           "belong to the chiral cubical symmetry group G, containing the 24 orientation "
+                           "preserving transformations that map coordinate axes to coordinate axes." << std::endl;
+            )
             auto u0_t = min_transition.transform_point(u0);
             auto t = roundVector(u1 - u0_t);
 
