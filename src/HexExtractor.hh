@@ -60,7 +60,7 @@ private:
         Degenerate
     };
 
-    std::string to_string(CellType type)
+    std::string toString(CellType type)
     {
       switch (type)
       {
@@ -629,6 +629,8 @@ private:
     std::vector<Parameter> getParameters(CellHandle ch);
     std::vector<Parameter> getParameters(HalfFaceHandle hfh);
     std::vector<Parameter> getParameters(HalfFaceHandle hfh, HalfEdgeHandle heh);
+    double getParametricVolume(CellHandle ch);
+    double getTotalParametricVolume();
 
     Position getPosition(Parameter param, CellHandle ch);
     Parameter getParameter(Position pos, CellHandle ch);

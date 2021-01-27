@@ -2866,6 +2866,7 @@ void HexExtractor::sanitizeParametrization(bool snapBoundary, bool extremeTrunca
 
     computeCellTypes();
 
+    HEXEX_DEBUG_ONLY(std::cout << "Total parametric volume is " << getTotalParametricVolume() << std::endl;)
 }
 
 bool HexExtractor::isInCell(CellHandle ch, Parameter param)
@@ -3171,6 +3172,24 @@ std::vector<Parameter> HexExtractor::getParameters(HalfFaceHandle hfh, HalfEdgeH
 {
     auto vertices = inputMesh.get_halfface_vertices(hfh, heh);
     return getParameters(inputMesh.incident_cell(hfh), vertices);
+}
+
+double HexExtractor::getParametricVolume(CellHandle ch)
+{
+  auto params = getParameters(ch);
+  auto d1 = params[1] - params[0];
+  auto d2 = params[2] - params[0];
+  auto d3 = params[3] - params[0];
+  auto volume = 1.0 / 6.0 * dot(cross(d1, d2), d3);
+  return volume;
+}
+
+double HexExtractor::getTotalParametricVolume()
+{
+  double volume = 0.0;
+  for (auto ch : inputMesh.cells())
+    volume += getParametricVolume(ch);
+  return volume;
 }
 
 Position HexExtractor::getPosition(Parameter param, CellHandle ch)
@@ -4031,8 +4050,8 @@ void HexExtractor::calculateEdgeSingularity(EdgeHandle eh)
                     std::cout << "accumulated tran fun " << std::endl << accTranFun << std::endl;
                     for (auto vh : vertices)
                     {
-                        std::cout << "face 1: " << parameter(inputMesh.incident_cell(transitionFace), vh)  << " Cell is " << to_string(getCellType(inputMesh.incident_cell(transitionFace))) << std::endl;
-                        std::cout << "face 2: " << parameter(currentCell, vh) << " Cell is " << to_string(getCellType(currentCell)) << std::endl;
+                        std::cout << "face 1: " << parameter(inputMesh.incident_cell(transitionFace), vh)  << " Cell is " << toString(getCellType(inputMesh.incident_cell(transitionFace))) << std::endl;
+                        std::cout << "face 2: " << parameter(currentCell, vh) << " Cell is " << toString(getCellType(currentCell)) << std::endl;
                     }
 
 
