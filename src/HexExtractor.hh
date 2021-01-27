@@ -711,7 +711,7 @@ private:
     template <typename T, typename... Rest>
     void doTransition(HalfFaceHandle hfh, T& target, Rest&... rest)
     {
-        HEXEX_DEBUG_ONLY(if (isFaceDegenerate(hfh))
+        HEXEX_DEBUG_ONLY(if (tracing && isFaceDegenerate(hfh))
             std::cout << "warning: transitioning through a degenerate face. Transition function might be wrong." << std::endl;)
         doTransition(hfh, target);
         doTransition(hfh, rest...);
@@ -781,6 +781,8 @@ private:
 
     long callsToFindPort;
     long portsCheckedInFindPort;
+
+    bool tracing; // For debugging. Enables warning in doTransition
 
 
 };

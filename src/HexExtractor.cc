@@ -86,7 +86,8 @@ HexExtractor::HexExtractor()
       numDartsTraced(0),
       numDartTraceLoops(0),
       callsToFindPort(0),
-      portsCheckedInFindPort(0)
+      portsCheckedInFindPort(0),
+      tracing(false)
 {
     exactinit();
 
@@ -841,6 +842,7 @@ void HexExtractor::traceDarts()
     auto n = (int)intermediateHexMesh.n_vertices();
 
     HEXEX_DEBUG_ONLY(std::cout << "Tracing darts" << std::endl;)
+    tracing = true; // enable warnings when passing through degenerate faces
 
 //#pragma omp parallel for
     for (auto i = 0; i < n; ++i)
@@ -859,6 +861,8 @@ void HexExtractor::traceDarts()
                 traceDart2(*d);
             }
     }
+
+    tracing = false;
 
 }
 
