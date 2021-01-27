@@ -2870,7 +2870,13 @@ void HexExtractor::sanitizeParametrization(bool snapBoundary, bool extremeTrunca
 
     computeCellTypes();
 
-    HEXEX_DEBUG_ONLY(std::cout << "Total parametric volume is " << getTotalParametricVolume() << std::endl;)
+    HEXEX_DEBUG_ONLY(
+    auto volume = getTotalParametricVolume();
+    if (volume < 1)
+        std::cerr << "Warning: Total parametric volume is " << volume << std::endl;
+    else
+        std::cout << "Total parametric volume is " << volume << std::endl;
+    )
 }
 
 bool HexExtractor::isInCell(CellHandle ch, Parameter param)
