@@ -2619,6 +2619,12 @@ void HexExtractor::extractTransitionFunction(FaceHandle fh)
                 }
             }
 
+            HEXEX_DEBUG_ONLY(
+            if (min_dist > 1e-3)
+              std::cout << "warning, the tranistion function of face " << fh.idx() << " does not seem to "
+                           "belong to the chiral cubical symmetry group G, containing the 24 orientation "
+                           "preserving transformations that map coordinate axes to coordinate axes." << std::endl;
+            )
             auto u0_t = min_transition.transform_point(u0);
             auto t = roundVector(u1 - u0_t);
 
@@ -2669,7 +2675,14 @@ HexExtractor::CellType HexExtractor::computeCellType(CellHandle ch)
     else if (sign == ORI_BELOW)
         return Flipped;
     else
-        return Proper;
+      return Proper;
+}
+
+HexExtractor::CellType HexExtractor::getCellType(CellHandle ch)
+{
+  if (!cellTypesComputed)
+    computeCellTypes();
+  return cellTypes[ch];
 }
 
 void HexExtractor::randomizeParametrization(double offsetSize, double keepBoundary)
@@ -4018,8 +4031,8 @@ void HexExtractor::calculateEdgeSingularity(EdgeHandle eh)
                     std::cout << "accumulated tran fun " << std::endl << accTranFun << std::endl;
                     for (auto vh : vertices)
                     {
-                        std::cout << "face 1: " << parameter(inputMesh.incident_cell(transitionFace), vh)  << (isCellFlipped(inputMesh.incident_cell(transitionFace)) ? " inverted" : " not inverted") << std::endl;
-                        std::cout << "face 2: " << parameter(currentCell, vh)  << (isCellFlipped(currentCell) ? " inverted" : " not inverted") << std::endl;
+                        std::cout << "face 1: " << parameter(inputMesh.incident_cell(transitionFace), vh)  << " Cell is " << to_string(getCellType(inputMesh.incident_cell(transitionFace))) << std::endl;
+                        std::cout << "face 2: " << parameter(currentCell, vh) << " Cell is " << to_string(getCellType(currentCell)) << std::endl;
                     }
 
 
