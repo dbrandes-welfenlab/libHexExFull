@@ -1,3 +1,11 @@
+libHexEx Fork with full src deps included
+======
+
+cmake-library commit: a2fdfb2540da7738d84ee56f95dd83628131110d
+OpenVolumeMesh commit: fc32a9f8bb97eb752a4a21830b1f45fb2eb3e916
+
+original Readme:
+
 libHexEx – A Robust Hexahedral Mesh Extractor
 ======
 

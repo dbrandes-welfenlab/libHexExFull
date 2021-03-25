@@ -1,3 +1,0 @@
-[submodule "cmake-library"]
-	path = cmake-library
-	url = ../../cmake/cmake-library
